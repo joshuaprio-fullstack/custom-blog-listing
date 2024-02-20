@@ -29,6 +29,42 @@ if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrent
 	}
 
 	$block_content = '<p ' . get_block_wrapper_attributes() . '>© ' . esc_html( $display_date ) . '</p>';
-}
 
+    $uncateg = get_cat_ID('uncategorized');
+    $args = array(
+        'post_type'      => 'post',
+        'posts_per_page' => 6,
+        'category__not_in' => array($uncateg)
+    );
+
+    $query = new WP_Query( $args );
+
+    if ( $query->have_posts() ) {
+        $block_content = '<div class="blog-post-section">';
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            $block_content .= '<div class="blog-list-container">';
+            // Category
+            $categories = get_the_category();
+            if ( ! empty( $categories ) ) {
+                $block_content .= '<p class="blog-post-category">
+                <a href="' . esc_url( get_category_link( $categories[0]->term_id ) ) . '">' . esc_html( $categories[0]->name ) . '</a></p>';
+            }
+            // Featured image
+            if ( has_post_thumbnail() ) {
+                $block_content .= '<div class="featured-image">' . get_the_post_thumbnail( null, 'thumbnail' ) . '</div>';
+            }
+
+            //title
+            $block_content .= '<p class="blog-post-title"><a href="' . esc_url( get_permalink() ) . '">' . get_the_title() . '</a></p>';
+
+            $block_content .= '</div>';
+        }
+        $block_content .= '</div>';
+        wp_reset_postdata(); // Reset post data
+    } else {
+        $block_content = '<p>No posts found.</p>';
+    }
+}
 echo wp_kses_post( $block_content );
+
