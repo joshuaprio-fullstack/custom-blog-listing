@@ -11,7 +11,8 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -29,13 +30,50 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
-	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Custom Blog Listing – hello from the editor!',
-				'custom-post-listing'
-			) }
-		</p>
-	);
+export default function Edit({ attributes, setAttributes }) {
+	const currentYear = new Date().getFullYear().toString();
+	const { showStartingYear, startingYear } = attributes;
+	let displayDate;
+
+	if ( showStartingYear && startingYear ) {
+		displayDate = startingYear + '-' + currentYear;
+	} else {
+		displayDate = currentYear;
+	}
+	
+    return (
+		<>
+		<InspectorControls>
+			<PanelBody title = {__( 'Settings', 'copyright-date-block' ) }>
+				<ToggleControl
+					checked = { !! showStartingYear }
+					label = { __(
+						'Show starting year',
+						'copyright-date-block'
+					) }
+					onChange={ () => 
+						setAttributes( {
+							showStartingYear: ! showStartingYear,
+						} )
+					}
+				>
+				</ToggleControl>
+				{  showStartingYear &&
+				<TextControl
+					label={ __ (
+						'Starting year',
+						'copyright-date-block'
+					)}
+					value={ startingYear || '' }
+					onChange={ ( value ) => 
+						setAttributes( { startingYear: value})
+					}
+					> 
+				</TextControl>
+				}
+			</PanelBody>
+		</InspectorControls>
+		<p { ...useBlockProps() }>© { displayDate }</p>
+		</>
+    );
 }
