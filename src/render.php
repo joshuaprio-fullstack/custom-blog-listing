@@ -43,23 +43,24 @@ if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrent
     }
 
     $block_content = '<p ' . get_block_wrapper_attributes() . '>© ' . esc_html( $display_date ) . '</p>';
-
+    
     $uncateg = get_cat_ID( 'uncategorized' );
     $args    = array(
         'post_type'        => 'post',
         'posts_per_page'   => 6,
         'category__not_in' => array( $uncateg ),
+        
     );
 
     $query         = new WP_Query( $args );
-    $loaded_posts  = array(); // Array to store the IDs of loaded posts
+    $loaded_posts  = array();
 
     if ( $query->have_posts() ) {
         $block_content = '<div class="blog-post-section">';
         while ( $query->have_posts() ) {
             $query->the_post();
             $post_id         = get_the_ID();
-            $loaded_posts[] = $post_id; // Store the ID of the loaded post
+            $loaded_posts[] = $post_id;
 
             $block_content .= '<div class="blog-list-container">';
             // Category
@@ -83,6 +84,7 @@ if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrent
     } else {
         $block_content = '<p>No posts found.</p>';
     }
+    
 }
 
 echo wp_kses_post( $block_content );

@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
     var page = 1;
     var loading = false;
-    var container = $('.blog-post-section'); // Update this selector to match your container
+    var container = $('.blog-post-section'); 
 
     function loadMorePosts() {
         if (loading) {
@@ -16,10 +16,12 @@ jQuery(document).ready(function($) {
             data: {
                 action: 'load_more_posts',
                 page: page,
-                loaded_posts: loadedPosts.join(',')
+                loaded_posts: loadedPosts.join(','),
+                keyword: jQuery('#keyword').val()
             },
             success: function(response) {
                 container.append(response);
+                jQuery('.blog-post-section').html( data );
                 page++;
                 loading = false;
             },
@@ -35,3 +37,30 @@ jQuery(document).ready(function($) {
         loadMorePosts();
     });
 });
+
+
+jQuery(document).ready(function($) {
+    $('#searchForm').on('submit', function(event) {
+      event.preventDefault();
+  
+      var searchQuery = $('#searchQuery').val();
+  
+
+      $.ajax({
+        url: my_ajax_object.ajaxurl, 
+        type: 'POST',
+        data: {
+          action: 'custom_search', 
+          searchQuery: searchQuery
+        },
+        success: function(response) {
+
+          $('#searchResults').html(response);
+        },
+        error: function(error) {
+
+          console.log(error);
+        }
+      });
+    });
+  });
