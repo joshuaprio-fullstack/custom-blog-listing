@@ -15,7 +15,7 @@
 if ( ! function_exists( 'my_custom_enqueue_scripts' ) ) {
     function my_custom_enqueue_scripts() {
         // Enqueue your JavaScript file
-        wp_enqueue_script( 'my-custom-script', plugins_url() . '/custom-post-listing/src/load-more.js', array( 'jquery' ), '1.0', false );
+        wp_enqueue_script( 'my-custom-script', plugins_url() . '/custom-blog-listing/src/load-more.js', array( 'jquery' ), '1.0', false );
     
         // Localize the script with the AJAX endpoint URL
         wp_localize_script( 'my-custom-script', 'my_ajax_object', array(
@@ -47,7 +47,7 @@ if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrent
     $uncateg = get_cat_ID( 'uncategorized' );
     $args    = array(
         'post_type'        => 'post',
-        'posts_per_page'   => 2,
+        'posts_per_page'   => 6,
         'category__not_in' => array( $uncateg ),
     );
 
@@ -79,8 +79,7 @@ if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrent
             $block_content .= '</div>';
         }
         $block_content .= '</div>';
-        $block_content .= '<button class="load-more-button">Load More</button>';
-        wp_reset_postdata(); // Reset post data
+        wp_reset_postdata();
     } else {
         $block_content = '<p>No posts found.</p>';
     }
@@ -88,5 +87,4 @@ if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrent
 
 echo wp_kses_post( $block_content );
 
-// Store the IDs of loaded posts in a JavaScript variable
 echo '<script>var loadedPosts = ' . json_encode( $loaded_posts ) . ';</script>';
