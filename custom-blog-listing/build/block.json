@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "custom-blog-listing/custom-post-listing",
+  "version": "0.1.0",
+  "title": "Custom Blog Listing",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Example block scaffolded with Create Block tool.",
+  "example": {},
+  "attributes": {
+    "fallbackCurrentYear": {
+      "type": "string"
+    },
+    "showStartingYear": {
+      "type": "boolean"
+    },
+    "startingYear": {
+      "type": "string"
+    }
+  },
+  "supports": {
+    "color": {
+      "background": false,
+      "text": true
+    },
+    "html": false,
+    "typography": {
+      "fontSize": true
+    }
+  },
+  "textdomain": "custom-post-listing",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js"
+}

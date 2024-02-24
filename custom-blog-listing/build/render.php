@@ -15,7 +15,7 @@
 if ( ! function_exists( 'my_custom_enqueue_scripts' ) ) {
     function my_custom_enqueue_scripts() {
         // Enqueue your JavaScript file
-        wp_enqueue_script( 'my-custom-script', plugin_dir_url(__FILE__) . '/load-more.js', array( 'jquery' ), '1.0', false );
+        wp_enqueue_script( 'my-custom-script', plugins_url() . '/custom-blog-listing/src/load-more.js', array( 'jquery' ), '1.0', false );
     
         // Localize the script with the AJAX endpoint URL
         wp_localize_script( 'my-custom-script', 'my_ajax_object', array(
