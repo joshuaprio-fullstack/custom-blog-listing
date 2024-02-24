@@ -37,30 +37,3 @@ jQuery(document).ready(function($) {
         loadMorePosts();
     });
 });
-
-
-jQuery(document).ready(function($) {
-    $('#searchForm').on('submit', function(event) {
-      event.preventDefault();
-  
-      var searchQuery = $('#searchQuery').val();
-  
-
-      $.ajax({
-        url: my_ajax_object.ajaxurl, 
-        type: 'POST',
-        data: {
-          action: 'custom_search', 
-          searchQuery: searchQuery
-        },
-        success: function(response) {
-
-          $('#searchResults').html(response);
-        },
-        error: function(error) {
-
-          console.log(error);
-        }
-      });
-    });
-  });
