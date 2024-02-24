@@ -73,7 +73,7 @@ export default function Edit({ attributes, setAttributes }) {
 				}
 			</PanelBody>
 		</InspectorControls>
-		<p { ...useBlockProps() }>© { displayDate }</p>
+		<p { ...useBlockProps() }>Custom Post Listing</p>
 		</>
     );
 }
