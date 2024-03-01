@@ -71,7 +71,7 @@ if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrent
             }
             // Featured image
             if ( has_post_thumbnail() ) {
-                $block_content .= '<div class="featured-image">' . get_the_post_thumbnail( null, 'thumbnail' ) . '</div>';
+                $block_content .= '<div class="featured-image">' . get_the_post_thumbnail( null, '' ) . '</div>';
             }
 
             // Title

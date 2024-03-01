@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "custom-blog-listing/custom-post-listing",
+	"name": "chartbeat-blog-listing/chartbeat-post-listing",
 	"version": "0.1.0",
-	"title": "Custom Blog Listing",
+	"title": "Chartbeat Blog Listing",
 	"category": "widgets",
-	"icon": "smiley",
-	"description": "Example block scaffolded with Create Block tool.",
+	"icon": "welcome-widgets-menus",
+	"description": "Chartbeat Resource Library block.",
 	"example": {},
 	"attributes": {
 		"fallbackCurrentYear": {

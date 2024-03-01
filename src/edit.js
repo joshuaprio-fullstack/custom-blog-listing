@@ -73,7 +73,7 @@ export default function Edit({ attributes, setAttributes }) {
 				}
 			</PanelBody>
 		</InspectorControls>
-		<p { ...useBlockProps() }>Custom Post Listing</p>
+		<p { ...useBlockProps() }>Chartbeat Resource Library</p>
 		</>
     );
 }
