@@ -21,8 +21,8 @@
  */
 
 /* eslint-disable no-console */
-console.log(
-	'Hello World! (from custom-blog-listing-custom-post-listing block)'
-);
+// console.log(
+// 	'Hello World! (from custom-blog-listing-custom-post-listing block)'
+// );
 /* eslint-enable no-console */
 

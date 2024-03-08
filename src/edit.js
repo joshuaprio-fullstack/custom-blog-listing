@@ -30,47 +30,26 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit({ attributes, setAttributes }) {
-	const currentYear = new Date().getFullYear().toString();
-	const { showStartingYear, startingYear } = attributes;
-	let displayDate;
 
-	if ( showStartingYear && startingYear ) {
-		displayDate = startingYear + '-' + currentYear;
-	} else {
-		displayDate = currentYear;
-	}
-	
+
+export default function Edit({ attributes, setAttributes }) {
+	const {numberPost} = attributes;
+
     return (
 		<>
 		<InspectorControls>
-			<PanelBody title = {__( 'Settings', 'copyright-date-block' ) }>
-				<ToggleControl
-					checked = { !! showStartingYear }
-					label = { __(
-						'Show starting year',
-						'copyright-date-block'
-					) }
-					onChange={ () => 
-						setAttributes( {
-							showStartingYear: ! showStartingYear,
-						} )
-					}
-				>
-				</ToggleControl>
-				{  showStartingYear &&
+			<PanelBody title = {__( 'Settings', 'blog-post-block' ) }>
 				<TextControl
 					label={ __ (
-						'Starting year',
-						'copyright-date-block'
+						'Number of Post',
+						'blog-post-block'
 					)}
-					value={ startingYear || '' }
-					onChange={ ( value ) => 
-						setAttributes( { startingYear: value})
+					value={ numberPost || '' }
+					onChange={ ( value ) =>
+						setAttributes( { numberPost: value})
 					}
-					> 
+					>
 				</TextControl>
-				}
 			</PanelBody>
 		</InspectorControls>
 		<p { ...useBlockProps() }>Chartbeat Resource Library</p>

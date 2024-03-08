@@ -9,14 +9,8 @@
 	"description": "Chartbeat Resource Library block.",
 	"example": {},
 	"attributes": {
-		"fallbackCurrentYear": {
-		  "type": "string"
-		},
-		"showStartingYear": {
-		  "type": "boolean"
-		},
-		"startingYear": {
-		  "type": "string"
+		"numberPost": {
+			"type": "string"
 		}
 	  },
 	  "supports": {

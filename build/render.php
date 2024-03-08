@@ -16,40 +16,23 @@ if ( ! function_exists( 'my_custom_enqueue_scripts' ) ) {
     function my_custom_enqueue_scripts() {
         // Enqueue your JavaScript file
         wp_enqueue_script( 'my-custom-script', plugin_dir_url(__FILE__) . '/load-more.js', array( 'jquery' ), '1.0', false );
-    
+
         // Localize the script with the AJAX endpoint URL
         wp_localize_script( 'my-custom-script', 'my_ajax_object', array(
             'ajax_url' => admin_url( 'admin-ajax.php' ),
         ) );
     }
-    
+
     add_action( 'wp_enqueue_scripts', 'my_custom_enqueue_scripts' );
 }
-
-$current_year = gmdate( 'Y' );
-
-// Determine which content to display.
-if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrentYear'] === $current_year ) {
-
-    // The current year is the same as the fallback, so use the block content saved in the database (by the save.js function).
     $block_content = $content;
-} else {
+	$number_post = ! empty($attributes['numberPost']) ? $attributes['numberPost'] : '6';
 
-    // The current year is different from the fallback, so render the updated block content.
-    if ( ! empty( $attributes['startingYear'] ) && ! empty( $attributes['showStartingYear'] ) ) {
-        $display_date = $attributes['startingYear'] . '–' . $current_year;
-    } else {
-        $display_date = $current_year;
-    }
-
-    $block_content = '<p ' . get_block_wrapper_attributes() . '>© ' . esc_html( $display_date ) . '</p>';
-    
     $uncateg = get_cat_ID( 'uncategorized' );
     $args    = array(
         'post_type'        => 'post',
-        'posts_per_page'   => 6,
+        'posts_per_page'   => $number_post,
         'category__not_in' => array( $uncateg ),
-        
     );
 
     $query         = new WP_Query( $args );
@@ -84,8 +67,6 @@ if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrent
     } else {
         $block_content = '<p>No posts found.</p>';
     }
-    
-}
 
 echo wp_kses_post( $block_content );
 
