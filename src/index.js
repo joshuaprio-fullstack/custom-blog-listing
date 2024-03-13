@@ -25,12 +25,12 @@ import metadata from './block.json';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType( metadata.name, {
-	/**
-	 * @see ./edit.js
-	 */
-	edit: Edit,
-} );
+registerBlockType(metadata.name, {
+    /**
+     * @see ./edit.js
+     */
+    edit: Edit,
+});
 
 
 registerBlockType('search-input/search-container', {
@@ -62,6 +62,52 @@ registerBlockType('search-input/search-container', {
                         </svg>
                     </button>
                 </form>
+            </div>
+        );
+    },
+});
+
+
+registerBlockType('search-icon-mobile/search-icon-mobile', {
+    title: 'Search Icon mobile',
+    icon: 'search',
+    category: 'layout',
+    edit: () => {
+        return (
+            <form class="search-form search-mobile">
+                <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                    <path d="M17.5 18.2515L12.5001 13.2515M14.1667 9.0848C14.1667 12.3065 11.555 14.9181 8.33333 14.9181C5.11167 14.9181 2.5 12.3065 2.5 9.0848C2.5 5.86314 5.11167 3.25146 8.33333 3.25146C11.555 3.25146 14.1667 5.86314 14.1667 9.0848Z" stroke="#11233A" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                </button>
+            </form>
+        );
+    },
+    save: () => {
+        return (
+            <form class="search-form search-mobile">
+                <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                    <path d="M17.5 18.2515L12.5001 13.2515M14.1667 9.0848C14.1667 12.3065 11.555 14.9181 8.33333 14.9181C5.11167 14.9181 2.5 12.3065 2.5 9.0848C2.5 5.86314 5.11167 3.25146 8.33333 3.25146C11.555 3.25146 14.1667 5.86314 14.1667 9.0848Z" stroke="#11233A" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                </button>
+            </form>
+        );
+    },
+});
+
+
+registerBlockType('search-result/search-result', {
+    title: 'Search Result',
+    icon: 'badge',
+    category: 'layout',
+    edit: () => {
+        return (
+            <div class="search-info-container">
+            </div>
+        );
+    },
+    save: () => {
+        return (
+            <div class="search-info-container">
             </div>
         );
     },
