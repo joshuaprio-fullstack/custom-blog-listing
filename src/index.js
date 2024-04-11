@@ -4,6 +4,8 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 import { registerBlockType } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
+import { useState, useEffect } from '@wordpress/element'; // Import useState and useEffect
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -38,6 +40,7 @@ registerBlockType('search-input/search-container', {
     icon: 'search',
     category: 'layout',
     edit: () => {
+
         return (
             <div id="search-container">
                 <form className="search-form">
@@ -108,6 +111,69 @@ registerBlockType('search-result/search-result', {
     save: () => {
         return (
             <div class="search-info-container">
+            </div>
+        );
+    },
+});
+
+registerBlockType('greenhouse-block/greenhouse-jobs', {
+    title: __('Greenhouse Jobs', 'greenhouse-block'),
+    icon: 'list-view',
+    category: 'widgets',
+
+    attributes: {
+        jobsData: {
+            type: 'array',
+            default: [],
+        },
+    },
+
+    edit: (props) => {
+        const { attributes, setAttributes } = props;
+        const [isLoading, setIsLoading] = useState(true);
+
+        useEffect(() => {
+            fetch('https://boards-api.greenhouse.io/v1/boards/chartbeatinc/jobs')
+                .then(response => response.json())
+                .then(data => {
+                    setAttributes({ jobsData: data.jobs });
+                    setIsLoading(false);
+                })
+                .catch(error => {
+                    console.error(error);
+                    setIsLoading(false);
+                });
+        }, [setAttributes]);
+
+        return (
+            <div>
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <div className="job-listing">
+                        {attributes.jobsData.map(job => (
+                            <div key={job.id} className='jobs-content'>
+                                <a href={job.absolute_url}>{job.title}</a>
+                                <p>{job.location.name}</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        );
+    },
+
+    save: (props) => {
+        const { attributes } = props;
+
+        return (
+            <div className="job-listing">
+                    {attributes.jobsData.map(job => (
+                        <div key={job.id} className='jobs-content'>
+                            <a href={job.absolute_url}>{job.title}</a>
+                            <p>{job.location.name}</p>
+                        </div>
+                    ))}
             </div>
         );
     },
