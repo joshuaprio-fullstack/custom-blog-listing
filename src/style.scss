@@ -30,6 +30,10 @@
 	padding: 28px 24px;
 }
 
+.single-post-container .blog-post-section {
+	grid-template-columns: unset !important;
+}
+
 .featured-image img {
     width: 100%;
     height: auto;
